@@ -12,6 +12,7 @@ Description
 ===========
 
 This library provides base classes for JAXB based configurations. The configuration itself is always implemented in another (specific) project.
+There is also an XSD schema available: [xmlcfg4j.xsd](http://www.fuin.org/xsd/xmlcfg4j.xsd)
 
 Variable
 --------
