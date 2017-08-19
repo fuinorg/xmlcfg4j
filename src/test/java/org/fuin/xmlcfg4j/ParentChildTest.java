@@ -38,6 +38,11 @@ public class ParentChildTest {
     public final void testVariableInheritance() throws Exception {
 
         // TEST
+        final String resVal = "/**\n * Test /var/tmp.\n */";
+        final String escapesVal = "\r\n\t";
+        String rootVal = "/var/tmp";
+        String pathVal = "${root}/example";
+        
         final String xml = read("parent-child.xml");
         final ParentElement parent = unmarshal(xml, ParentElement.class,
                 ChildElement.class);
@@ -46,20 +51,30 @@ public class ParentChildTest {
         // VERIFY
 
         assertThat(parent.getVariables()).containsOnly(
-                new Variable("root", "/var/tmp"),
-                new Variable("path", "${root}/example"));
-        assertThat(parent.getVarMap()).containsOnly(entry("root", "/var/tmp"),
-                entry("path", "/var/tmp/example"));
+                new Variable("root", rootVal),
+                new Variable("path", pathVal),
+                new Variable("res", resVal),
+                new Variable("escapes", escapesVal)
+                );
+        assertThat(parent.getVarMap()).containsOnly(
+                entry("root", rootVal),
+                entry("path", "/var/tmp/example"),
+                entry("res", resVal),
+                entry("escapes", escapesVal)
+                );
         
         assertThat(parent.getChilds()).hasSize(1);
         
         final ChildElement child = parent.getChilds().get(0);
 
         assertThat(child.getVariables()).containsOnly(
-                new Variable("path", "${root}/example"));
+                new Variable("path", pathVal));
         assertThat(child.getVarMap()).containsOnly(
-                entry("root", "/var/tmp"),
-                entry("path", "/var/tmp/example/child"));
+                entry("root", rootVal),
+                entry("path", "/var/tmp/example/child"),
+                entry("res", resVal),
+                entry("escapes", escapesVal)
+                );
         
     }
 

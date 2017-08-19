@@ -80,7 +80,7 @@ public class AbstractNamedElementTest {
         assertThat(result).isEqualTo(XML_PREFIX
                 + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
                 + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">"
-                + "<variable value=\"1\" name=\"a\"/>"
+                + "<variable name=\"a\" value=\"1\"/>"
                 + "</ns2:my-named-element>");
 
     }
@@ -127,6 +127,7 @@ public class AbstractNamedElementTest {
     @XmlRootElement(name = "my-named-element", namespace = "http://www.fuin.org/xmlcfg4j-test")
     private static class MyElement extends AbstractNamedElement {
 
+        @SuppressWarnings("unused")
         public MyElement() {
             super();
         }

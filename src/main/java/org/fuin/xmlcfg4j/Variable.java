@@ -37,7 +37,7 @@ import org.fuin.utils4j.Utils4J;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "variable")
-@XmlType(propOrder = { "xpath", "value", "name" })
+@XmlType(propOrder = { "name", "value" })
 public final class Variable {
 
     @NotEmpty
@@ -47,10 +47,6 @@ public final class Variable {
     @NotEmpty
     @XmlAttribute
     private String value;
-
-    @Nullable
-    @XmlAttribute
-    private String xpath;
 
     @Nullable
     @XmlAttribute(name = "url")
@@ -83,27 +79,6 @@ public final class Variable {
         Validate.notEmpty(value);
         this.name = name;
         this.value = value;
-    }
-
-    /**
-     * Constructor with name, value and xpath.
-     * 
-     * @param name
-     *            Name to set.
-     * @param value
-     *            Value to set.
-     * @param xpath
-     *            Value to set.
-     */
-    public Variable(@NotEmpty final String name, @NotEmpty final String value,
-            @NotEmpty final String xpath) {
-        super();
-        Validate.notEmpty(name);
-        Validate.notEmpty(value);
-        Validate.notEmpty(xpath);
-        this.name = name;
-        this.value = value;
-        this.xpath = xpath;
     }
 
     /**
@@ -153,16 +128,6 @@ public final class Variable {
     }
 
     /**
-     * Returns the xpath of the variable.
-     * 
-     * @return Current xpath.
-     */
-    @Nullable
-    public final String getXpath() {
-        return xpath;
-    }
-
-    /**
      * Returns the URL.
      * 
      * @return URL or <code>null</code>.
@@ -208,7 +173,7 @@ public final class Variable {
      *            Variables to use.
      */
     public final void init(@Nullable final Map<String, String> vars) {
-        value = Utils4J.replaceVars(value, vars);
+        value = Utils4J.replaceVars(getValue(), vars);
     }
 
     // CHECKSTYLE:OFF Generated code
@@ -240,8 +205,8 @@ public final class Variable {
 
     @Override
     public final String toString() {
-        return "Variable [name=" + name + ", value=" + value + ", xpath="
-                + xpath + ", urlStr=" + urlStr + ", encoding=" + encoding + "]";
+        return "Variable [name=" + name + ", value=" + value + ", urlStr="
+                + urlStr + ", encoding=" + encoding + "]";
     }
 
 }

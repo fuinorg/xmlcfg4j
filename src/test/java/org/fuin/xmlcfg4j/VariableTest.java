@@ -59,7 +59,7 @@ public class VariableTest {
 
         // VERIFY
         assertThat(result)
-                .isEqualTo(XML_PREFIX + "<variable value=\"def\" name=\"abc\" "
+                .isEqualTo(XML_PREFIX + "<variable name=\"abc\" value=\"def\" "
                         + "xmlns=\"http://www.fuin.org/xmlcfg4j\"/>");
 
     }

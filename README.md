@@ -68,15 +68,21 @@ Inherit and override variables
 If you create elements that contain other elements, it's easy to support inheritance of variables and also override them.
 
 ```XML
+<?xml version="1.0" encoding="UTF-8"?>
 <test:parent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.fuin.org/xmlcfg4j" 
-	xmlns:test="http://www.fuin.org/xmlcfg4j/test">
+	xmlns="http://www.fuin.org/xmlcfg4j" xmlns:test="http://www.fuin.org/xmlcfg4j/test">
 
 	<variable name="root" value="/var/tmp" />
 	<variable name="path" value="${root}/example" />
+	<!-- Read a file from the classpath and replace variables contained in it. -->
+	<variable name="res" url="classpath:header.txt" encoding="utf-8" />
+	<!-- Use escaped characters. -->
+	<variable name="escapes" value="\r\n\t" />
 
 	<test:child>
 		<!-- Inherits variable "root" -->
+		<!-- Inherits variable "res" -->
+		<!-- Inherits variable "escapes" -->
 		<!-- Overrides variable "path" = "/var/tmp/example/child" -->
 		<variable name="path" value="${path}/child" />
 	</test:child>

@@ -47,24 +47,6 @@ public abstract class AbstractElement {
     private transient Map<String, String> varMap;
 
     /**
-     * Replaces all variables inside a string with values from a map. A
-     * <code>null</code> input string value will return <code>null</code>.
-     * 
-     * @param str
-     *            Text with variables (Format: ${key} ).
-     * @param vars
-     *            Map with key/values (both of type <code>String</code>.
-     * 
-     * @return String with replaced variables. Unknown variables will remain
-     *         unchanged.
-     */
-    @Nullable
-    public final String replaceVars(@Nullable final String str,
-            @Nullable final Map<String, String> vars) {
-        return Utils4J.replaceVars(str, vars);
-    }
-
-    /**
      * Derives all variables from a parent map plus the ones defined in the
      * object itself.
      * 
@@ -82,8 +64,9 @@ public abstract class AbstractElement {
         }
         if (variables != null) {
             for (Variable variable : variables) {
+                final Map<String, String> vars = varMap;
                 varMap.put(variable.getName(),
-                        replaceVars(variable.getValue(), varMap));
+                        Utils4J.replaceVars(variable.getValue(), vars));
             }
             varMap = new VariableResolver(varMap).getResolved();
         }
