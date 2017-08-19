@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test:parent xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.fuin.org/xmlcfg4j" xmlns:test="http://www.fuin.org/xmlcfg4j/test">
+
+	<variable name="root" value="/var/tmp" />
+	<variable name="path" value="${root}/example" />
+
+	<test:child>
+		<!-- Inherits variable "root" -->
+		<!-- Overrides variable "path" = "/var/tmp/example/child" -->
+		<variable name="path" value="${path}/child" />
+	</test:child>
+
+</test:parent>
