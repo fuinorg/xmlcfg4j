@@ -40,7 +40,7 @@ public abstract class AbstractNamedElement extends AbstractElement {
     /**
      * Package visible default constructor for deserialization.
      */
-    AbstractNamedElement() {
+    protected AbstractNamedElement() {
         super();
     }
 
