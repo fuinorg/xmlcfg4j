@@ -53,7 +53,6 @@ public abstract class AbstractElement {
      * @param parentVars
      *            Variables defined by the parent.
      */
-    @NotNull
     protected final void inheritVariables(
             @Nullable final Map<String, String> parentVars) {
         if (varMap == null) {
