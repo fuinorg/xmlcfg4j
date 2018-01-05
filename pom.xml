@@ -11,7 +11,7 @@
 
 	<artifactId>xmlcfg4j</artifactId>
 	<packaging>jar</packaging>
-	<version>0.1.0</version>
+	<version>0.2.0-SNAPSHOT</version>
 	<name>XmlCfg4J</name>
 	<description>XML based configuration for Java</description>
 	<url>https://github.com/fuinorg/xmlcfg4j/</url>
