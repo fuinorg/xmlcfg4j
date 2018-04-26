@@ -105,7 +105,7 @@ $ ./mvnw clean install
 
 Windows:
 ```
-$ mvnw.cmd clean install
+C:\Users\YourUser> mvnw.cmd clean install
 ```
 
 -----------------------------------------------------
