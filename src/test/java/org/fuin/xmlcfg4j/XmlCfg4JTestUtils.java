@@ -41,15 +41,15 @@ public final class XmlCfg4JTestUtils {
      */
     public static PojoValidator createPojoValidator() {
 
-        final PojoValidator pv = new PojoValidator();
+	final PojoValidator pv = new PojoValidator();
 
-        pv.addRule(new NoPublicFieldsRule());
-        pv.addRule(new NoFieldShadowingRule());
+	pv.addRule(new NoPublicFieldsRule());
+	pv.addRule(new NoFieldShadowingRule());
 
-        pv.addTester(new DefaultValuesNullTester());
-        pv.addTester(new GetterTester());
+	pv.addTester(new DefaultValuesNullTester());
+	pv.addTester(new GetterTester());
 
-        return pv;
+	return pv;
     }
 
 }

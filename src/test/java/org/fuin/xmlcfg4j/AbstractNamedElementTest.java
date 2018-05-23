@@ -43,80 +43,70 @@ public class AbstractNamedElementTest {
     @Test
     public final void testPojoStructureAndBehavior() {
 
-        final PojoClass pc = PojoClassFactory.getPojoClass(MyElement.class);
-        final PojoValidator pv = createPojoValidator();
-        pv.runValidation(pc);
+	final PojoClass pc = PojoClassFactory.getPojoClass(MyElement.class);
+	final PojoValidator pv = createPojoValidator();
+	pv.runValidation(pc);
 
     }
 
     @Test
     public final void testMarshal() throws Exception {
 
-        // PREPARE
-        final MyElement testee = new MyElement("NAME");
+	// PREPARE
+	final MyElement testee = new MyElement("NAME");
 
-        // TEST
-        final String result = marshal(testee, MyElement.class);
+	// TEST
+	final String result = marshal(testee, MyElement.class);
 
-        // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX
-                + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
+	// VERIFY
+	assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
+		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
 
     }
 
     @Test
     public final void testMarshalVariables() throws Exception {
 
-        // PREPARE
-        final MyElement testee = new MyElement("NAME");
-        testee.addVariable(new Variable("a", "1"));
+	// PREPARE
+	final MyElement testee = new MyElement("NAME");
+	testee.addVariable(new Variable("a", "1"));
 
-        // TEST
-        final String result = marshal(testee, MyElement.class);
+	// TEST
+	final String result = marshal(testee, MyElement.class);
 
-        // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX
-                + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">"
-                + "<variable name=\"a\" value=\"1\"/>"
-                + "</ns2:my-named-element>");
+	// VERIFY
+	assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
+		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable name=\"a\" value=\"1\"/>" + "</ns2:my-named-element>");
 
     }
 
     @Test
     public final void testUnmarshal() throws Exception {
 
-        // TEST
-        final MyElement testee = unmarshal(
-                "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                        + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>",
-                MyElement.class);
+	// TEST
+	final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
+		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>", MyElement.class);
 
-        // VERIFY
-        assertThat(testee).isNotNull();
-        assertThat(testee.getVariables()).isNull();
-        assertThat(testee.getVarMap()).hasSize(0);
+	// VERIFY
+	assertThat(testee).isNotNull();
+	assertThat(testee.getVariables()).isNull();
+	assertThat(testee.getVarMap()).hasSize(0);
 
     }
 
     @Test
     public final void testUnmarshalVariables() throws Exception {
 
-        // TEST
-        final MyElement testee = unmarshal(
-                "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                        + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">"
-                        + "<variable value=\"1\" name=\"a\"/>"
-                        + "</ns2:my-named-element>",
-                MyElement.class);
-        testee.inheritVariables(null);
+	// TEST
+	final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
+		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-named-element>",
+		MyElement.class);
+	testee.inheritVariables(null);
 
-        // VERIFY
-        assertThat(testee).isNotNull();
-        assertThat(testee.getVariables())
-                .containsExactly(new Variable("a", "1"));
-        assertThat(testee.getVarMap()).containsOnly(entry("a", "1"));
+	// VERIFY
+	assertThat(testee).isNotNull();
+	assertThat(testee.getVariables()).containsExactly(new Variable("a", "1"));
+	assertThat(testee.getVarMap()).containsOnly(entry("a", "1"));
 
     }
 
@@ -126,14 +116,14 @@ public class AbstractNamedElementTest {
     @XmlRootElement(name = "my-named-element", namespace = "http://www.fuin.org/xmlcfg4j-test")
     private static class MyElement extends AbstractNamedElement {
 
-        @SuppressWarnings("unused")
-        public MyElement() {
-            super();
-        }
+	@SuppressWarnings("unused")
+	public MyElement() {
+	    super();
+	}
 
-        public MyElement(@NotEmpty String name) {
-            super(name);
-        }
+	public MyElement(@NotEmpty String name) {
+	    super(name);
+	}
 
     }
 

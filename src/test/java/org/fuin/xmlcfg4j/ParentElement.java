@@ -13,25 +13,23 @@ public class ParentElement extends AbstractElement {
     @XmlElement(name = "child", namespace = "http://www.fuin.org/xmlcfg4j/test")
     private List<ChildElement> childs;
 
-    
     public List<ChildElement> getChilds() {
-        return Collections.unmodifiableList(childs);
+	return Collections.unmodifiableList(childs);
     }
-    
-    
+
     public void init() {
-        
-        // No parent to inherit from
-        inheritVariables(null);
-        
-        // Initialize childs
-        if (childs != null) {
-            for (ChildElement child : childs) {
-                child.init(getVarMap());
-            }
-        }
-        
+
+	// No parent to inherit from
+	inheritVariables(null);
+
+	// Initialize childs
+	if (childs != null) {
+	    for (ChildElement child : childs) {
+		child.init(getVarMap());
+	    }
+	}
+
     }
-    
+
 }
 // CHECKSTYLE:ON

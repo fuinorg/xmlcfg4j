@@ -1,6 +1,5 @@
 /**
- * Copyright (C) 2015 Michael Schnell. All rights reserved. 
- * http://www.fuin.org/
+ * Copyright (C) 2015 Michael Schnell. All rights reserved. http://www.fuin.org/
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -20,4 +19,3 @@ package org.fuin.xmlcfg4j;
 
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;
-

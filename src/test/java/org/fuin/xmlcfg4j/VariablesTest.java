@@ -39,41 +39,38 @@ public class VariablesTest {
     @Test
     public final void testPojoStructureAndBehavior() {
 
-        final PojoClass pc = PojoClassFactory.getPojoClass(Variables.class);
-        final PojoValidator pv = createPojoValidator();
-        pv.runValidation(pc);
+	final PojoClass pc = PojoClassFactory.getPojoClass(Variables.class);
+	final PojoValidator pv = createPojoValidator();
+	pv.runValidation(pc);
 
     }
 
     @Test
     public final void testMarshal() throws Exception {
 
-        // PREPARE
-        final Variables testee = new Variables(new Variable("abc", "def"));
+	// PREPARE
+	final Variables testee = new Variables(new Variable("abc", "def"));
 
-        // TEST
-        final String result = marshal(testee, Variables.class);
+	// TEST
+	final String result = marshal(testee, Variables.class);
 
-        // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX
-                + "<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">"
-                + "<variable name=\"abc\" value=\"def\"/>" + "</variables>");
+	// VERIFY
+	assertThat(result).isEqualTo(XML_PREFIX + "<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">"
+		+ "<variable name=\"abc\" value=\"def\"/>" + "</variables>");
 
     }
 
     @Test
     public final void testUnmarshal() throws Exception {
 
-        // TEST
-        final Variables testee = unmarshal(
-                "<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">"
-                        + "<variable name=\"abc\" value=\"def\"/>"
-                        + "</variables>",
-                Variables.class);
+	// TEST
+	final Variables testee = unmarshal(
+		"<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">" + "<variable name=\"abc\" value=\"def\"/>" + "</variables>",
+		Variables.class);
 
-        // VERIFY
-        assertThat(testee).isNotNull();
-        assertThat(testee.asList()).containsOnly(new Variable("abc", "def"));
+	// VERIFY
+	assertThat(testee).isNotNull();
+	assertThat(testee.asList()).containsOnly(new Variable("abc", "def"));
 
     }
 

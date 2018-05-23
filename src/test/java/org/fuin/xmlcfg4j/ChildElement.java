@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ChildElement extends AbstractElement {
 
     public void init(@NotNull Map<String, String> varMap) {
-        inheritVariables(varMap);        
+	inheritVariables(varMap);
     }
 
 }
