@@ -18,7 +18,7 @@
 package org.fuin.xmlcfg4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.StrictAssertions.entry;
+import static org.assertj.core.api.Assertions.entry;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
 
 import java.io.IOException;
