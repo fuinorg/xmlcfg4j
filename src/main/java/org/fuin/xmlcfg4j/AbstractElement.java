@@ -55,7 +55,7 @@ public abstract class AbstractElement {
      */
     protected final void inheritVariables(@Nullable final Map<String, String> parentVars) {
 	if (varMap == null) {
-	    varMap = new HashMap<String, String>();
+	    varMap = new HashMap<>();
 	}
 	if (parentVars != null) {
 	    varMap.putAll(parentVars);
@@ -90,7 +90,7 @@ public abstract class AbstractElement {
      */
     public final void addVariable(@NotNull final Variable variable) {
 	if (variables == null) {
-	    variables = new ArrayList<Variable>();
+	    variables = new ArrayList<>();
 	}
 	variables.add(variable);
     }
