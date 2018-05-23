@@ -45,7 +45,7 @@ public final class Variables {
     @NotEmpty
     @Valid
     @XmlElement(name = "variable")
-    private List<Variable> variables;
+    private List<Variable> list;
 
     /**
      * Package visible default constructor for deserialization.
@@ -64,7 +64,7 @@ public final class Variables {
 	super();
 	Validate.notEmpty(variables);
 	Validate.noNullElements(variables);
-	this.variables = Arrays.asList(variables);
+	this.list = Arrays.asList(variables);
     }
 
     /**
@@ -77,8 +77,8 @@ public final class Variables {
 	super();
 	Validate.notEmpty(variables);
 	Validate.noNullElements(variables);
-	this.variables = new ArrayList<>(variables.size());
-	this.variables.addAll(variables);
+	this.list = new ArrayList<>(variables.size());
+	this.list.addAll(variables);
     }
 
     /**
@@ -88,7 +88,7 @@ public final class Variables {
      *            Variables to use.
      */
     public final void init(@Nullable final Map<String, String> vars) {
-	for (Variable variable : variables) {
+	for (Variable variable : list) {
 	    variable.init(vars);
 	}
     }
@@ -100,7 +100,7 @@ public final class Variables {
      */
     @NotEmpty
     public final List<Variable> asList() {
-	return Collections.unmodifiableList(variables);
+	return Collections.unmodifiableList(list);
     }
 
     /**
@@ -110,11 +110,11 @@ public final class Variables {
      */
     @NotEmpty
     public Map<String, String> asMap() {
-	if (variables == null) {
+	if (list == null) {
 	    return Collections.emptyMap();
 	}
 	final Map<String, String> map = new HashMap<>();
-	for (final Variable var : variables) {
+	for (final Variable var : list) {
 	    map.put(var.getName(), var.getValue());
 	}
 	return map;
