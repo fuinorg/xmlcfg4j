@@ -14,20 +14,20 @@ public class ParentElement extends AbstractElement {
     private List<ChildElement> childs;
 
     public List<ChildElement> getChilds() {
-	return Collections.unmodifiableList(childs);
+        return Collections.unmodifiableList(childs);
     }
 
     public void init() {
 
-	// No parent to inherit from
-	inheritVariables(null);
+        // No parent to inherit from
+        inheritVariables(null);
 
-	// Initialize childs
-	if (childs != null) {
-	    for (ChildElement child : childs) {
-		child.init(getVarMap());
-	    }
-	}
+        // Initialize childs
+        if (childs != null) {
+            for (ChildElement child : childs) {
+                child.init(getVarMap());
+            }
+        }
 
     }
 

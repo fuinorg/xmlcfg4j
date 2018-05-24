@@ -51,7 +51,7 @@ public final class Variables {
      * Package visible default constructor for deserialization.
      */
     Variables() {
-	super();
+        super();
     }
 
     /**
@@ -61,10 +61,10 @@ public final class Variables {
      *            Array to set.
      */
     public Variables(@NotEmpty final Variable... variables) {
-	super();
-	Validate.notEmpty(variables);
-	Validate.noNullElements(variables);
-	this.list = Arrays.asList(variables);
+        super();
+        Validate.notEmpty(variables);
+        Validate.noNullElements(variables);
+        this.list = Arrays.asList(variables);
     }
 
     /**
@@ -74,11 +74,11 @@ public final class Variables {
      *            Collection to set.
      */
     public Variables(@NotEmpty final Collection<Variable> variables) {
-	super();
-	Validate.notEmpty(variables);
-	Validate.noNullElements(variables);
-	this.list = new ArrayList<>(variables.size());
-	this.list.addAll(variables);
+        super();
+        Validate.notEmpty(variables);
+        Validate.noNullElements(variables);
+        this.list = new ArrayList<>(variables.size());
+        this.list.addAll(variables);
     }
 
     /**
@@ -88,9 +88,9 @@ public final class Variables {
      *            Variables to use.
      */
     public final void init(@Nullable final Map<String, String> vars) {
-	for (Variable variable : list) {
-	    variable.init(vars);
-	}
+        for (Variable variable : list) {
+            variable.init(vars);
+        }
     }
 
     /**
@@ -100,7 +100,7 @@ public final class Variables {
      */
     @NotEmpty
     public final List<Variable> asList() {
-	return Collections.unmodifiableList(list);
+        return Collections.unmodifiableList(list);
     }
 
     /**
@@ -110,14 +110,14 @@ public final class Variables {
      */
     @NotEmpty
     public Map<String, String> asMap() {
-	if (list == null) {
-	    return Collections.emptyMap();
-	}
-	final Map<String, String> map = new HashMap<>();
-	for (final Variable var : list) {
-	    map.put(var.getName(), var.getValue());
-	}
-	return map;
+        if (list == null) {
+            return Collections.emptyMap();
+        }
+        final Map<String, String> map = new HashMap<>();
+        for (final Variable var : list) {
+            map.put(var.getName(), var.getValue());
+        }
+        return map;
     }
 
 }

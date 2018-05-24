@@ -37,44 +37,44 @@ public class ParentChildTest {
     @Test
     public final void testVariableInheritance() throws Exception {
 
-	// TEST
-	final String resVal = "/**\n * Test /var/tmp.\n */";
-	final String escapesVal = "\r\n\t";
-	String rootVal = "/var/tmp";
-	String pathVal = "${root}/example";
+        // TEST
+        final String resVal = "/**\n * Test /var/tmp.\n */";
+        final String escapesVal = "\r\n\t";
+        String rootVal = "/var/tmp";
+        String pathVal = "${root}/example";
 
-	final String xml = read("parent-child.xml");
-	final ParentElement parent = unmarshal(xml, ParentElement.class, ChildElement.class);
-	parent.init();
+        final String xml = read("parent-child.xml");
+        final ParentElement parent = unmarshal(xml, ParentElement.class, ChildElement.class);
+        parent.init();
 
-	// VERIFY
+        // VERIFY
 
-	assertThat(parent.getVariables()).containsOnly(new Variable("root", rootVal), new Variable("path", pathVal),
-		new Variable("res", resVal), new Variable("escapes", escapesVal));
-	assertThat(parent.getVarMap()).containsOnly(entry("root", rootVal), entry("path", "/var/tmp/example"), entry("res", resVal),
-		entry("escapes", escapesVal));
+        assertThat(parent.getVariables()).containsOnly(new Variable("root", rootVal), new Variable("path", pathVal),
+                new Variable("res", resVal), new Variable("escapes", escapesVal));
+        assertThat(parent.getVarMap()).containsOnly(entry("root", rootVal), entry("path", "/var/tmp/example"), entry("res", resVal),
+                entry("escapes", escapesVal));
 
-	assertThat(parent.getChilds()).hasSize(1);
+        assertThat(parent.getChilds()).hasSize(1);
 
-	final ChildElement child = parent.getChilds().get(0);
+        final ChildElement child = parent.getChilds().get(0);
 
-	assertThat(child.getVariables()).containsOnly(new Variable("path", pathVal));
-	assertThat(child.getVarMap()).containsOnly(entry("root", rootVal), entry("path", "/var/tmp/example/child"), entry("res", resVal),
-		entry("escapes", escapesVal));
+        assertThat(child.getVariables()).containsOnly(new Variable("path", pathVal));
+        assertThat(child.getVarMap()).containsOnly(entry("root", rootVal), entry("path", "/var/tmp/example/child"), entry("res", resVal),
+                entry("escapes", escapesVal));
 
     }
 
     private static String read(final String resource) {
-	try {
-	    final InputStream in = ParentChildTest.class.getClassLoader().getResourceAsStream(resource);
-	    try {
-		return IOUtils.toString(in, "utf-8");
-	    } finally {
-		in.close();
-	    }
-	} catch (final IOException ex) {
-	    throw new RuntimeException(ex);
-	}
+        try {
+            final InputStream in = ParentChildTest.class.getClassLoader().getResourceAsStream(resource);
+            try {
+                return IOUtils.toString(in, "utf-8");
+            } finally {
+                in.close();
+            }
+        } catch (final IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
 }

@@ -26,8 +26,7 @@ import javax.xml.bind.annotation.XmlType;
 import org.apache.commons.lang3.Validate;
 
 /**
- * Base class with a name that is used as unique identifier. Equals and hash
- * code are also based on the name and the type of the class.
+ * Base class with a name that is used as unique identifier. Equals and hash code are also based on the name and the type of the class.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "name" })
@@ -41,7 +40,7 @@ public abstract class AbstractNamedElement extends AbstractElement {
      * Package visible default constructor for deserialization.
      */
     protected AbstractNamedElement() {
-	super();
+        super();
     }
 
     /**
@@ -51,9 +50,9 @@ public abstract class AbstractNamedElement extends AbstractElement {
      *            Name to set.
      */
     public AbstractNamedElement(@NotEmpty final String name) {
-	super();
-	Validate.notEmpty(name);
-	this.name = name;
+        super();
+        Validate.notEmpty(name);
+        this.name = name;
     }
 
     /**
@@ -63,7 +62,7 @@ public abstract class AbstractNamedElement extends AbstractElement {
      */
     @NotEmpty
     public final String getName() {
-	return name;
+        return name;
     }
 
     /**
@@ -73,39 +72,39 @@ public abstract class AbstractNamedElement extends AbstractElement {
      *            Name to set.
      */
     protected final void setName(@NotEmpty final String name) {
-	Validate.notEmpty(name);
-	this.name = name;
+        Validate.notEmpty(name);
+        this.name = name;
     }
 
     // CHECKSTYLE:OFF Generated code
     @Override
     public final int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((name == null) ? 0 : name.hashCode());
-	return result;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
     }
 
     @Override
     public final boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	final AbstractNamedElement other = (AbstractNamedElement) obj;
-	if (name == null) {
-	    if (other.name != null) {
-		return false;
-	    }
-	} else if (!name.equals(other.name)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AbstractNamedElement other = (AbstractNamedElement) obj;
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
     }
     // CHECKSTYLE:ON
 

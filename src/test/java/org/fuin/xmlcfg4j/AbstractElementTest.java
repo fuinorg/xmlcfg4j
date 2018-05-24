@@ -46,119 +46,119 @@ public class AbstractElementTest {
     @Test
     public final void testPojoStructureAndBehavior() {
 
-	final PojoClass pc = PojoClassFactory.getPojoClass(MyElement.class);
-	final PojoValidator pv = createPojoValidator();
-	pv.runValidation(pc);
+        final PojoClass pc = PojoClassFactory.getPojoClass(MyElement.class);
+        final PojoValidator pv = createPojoValidator();
+        pv.runValidation(pc);
 
     }
 
     @Test
     public final void testInheritVariables() throws Exception {
 
-	// PREPARE
-	final MyElement testee = new MyElement();
-	testee.addVariable(new Variable("a", "A"));
-	testee.addVariable(new Variable("b", "B"));
-	testee.addVariable(new Variable("c", "C"));
+        // PREPARE
+        final MyElement testee = new MyElement();
+        testee.addVariable(new Variable("a", "A"));
+        testee.addVariable(new Variable("b", "B"));
+        testee.addVariable(new Variable("c", "C"));
 
-	final Map<String, String> parentVars = new HashMap<>();
-	parentVars.put("b", "1");
-	parentVars.put("d", "D");
+        final Map<String, String> parentVars = new HashMap<>();
+        parentVars.put("b", "1");
+        parentVars.put("d", "D");
 
-	// TEST
-	testee.inheritVariables(parentVars);
+        // TEST
+        testee.inheritVariables(parentVars);
 
-	// VERIFY
-	assertThat(testee.getVariables()).containsOnly(new Variable("a", "A"), new Variable("b", "B"), new Variable("c", "C"));
-	assertThat(testee.getVarMap()).containsOnly(entry("a", "A"), entry("b", "B"), entry("c", "C"), entry("d", "D"));
+        // VERIFY
+        assertThat(testee.getVariables()).containsOnly(new Variable("a", "A"), new Variable("b", "B"), new Variable("c", "C"));
+        assertThat(testee.getVarMap()).containsOnly(entry("a", "A"), entry("b", "B"), entry("c", "C"), entry("d", "D"));
 
     }
 
     @Test
     public final void testResolvingVariables() throws Exception {
 
-	// PREPARE
-	final MyElement testee = new MyElement();
-	testee.addVariable(new Variable("a", "${root}/A"));
-	testee.addVariable(new Variable("b", "${a}/B"));
-	testee.addVariable(new Variable("c", "${b}/C"));
+        // PREPARE
+        final MyElement testee = new MyElement();
+        testee.addVariable(new Variable("a", "${root}/A"));
+        testee.addVariable(new Variable("b", "${a}/B"));
+        testee.addVariable(new Variable("c", "${b}/C"));
 
-	final Map<String, String> unresolvedParentVars = new HashMap<>();
-	unresolvedParentVars.put("root", "ROOT");
-	unresolvedParentVars.put("c", "C");
-	unresolvedParentVars.put("d", "${b}/D");
-	final Map<String, String> parentVars = new VariableResolver(unresolvedParentVars).getResolved();
+        final Map<String, String> unresolvedParentVars = new HashMap<>();
+        unresolvedParentVars.put("root", "ROOT");
+        unresolvedParentVars.put("c", "C");
+        unresolvedParentVars.put("d", "${b}/D");
+        final Map<String, String> parentVars = new VariableResolver(unresolvedParentVars).getResolved();
 
-	// TEST
-	testee.inheritVariables(parentVars);
+        // TEST
+        testee.inheritVariables(parentVars);
 
-	// VERIFY
-	assertThat(testee.getVariables()).containsOnly(new Variable("a", "${root}/a"), new Variable("b", "${a}/b"),
-		new Variable("c", "${b}/c"));
-	assertThat(testee.getVarMap()).containsOnly(entry("root", "ROOT"), entry("a", "ROOT/A"), entry("b", "ROOT/A/B"),
-		entry("c", "ROOT/A/B/C"), entry("d", "ROOT/A/B/D"));
+        // VERIFY
+        assertThat(testee.getVariables()).containsOnly(new Variable("a", "${root}/a"), new Variable("b", "${a}/b"),
+                new Variable("c", "${b}/c"));
+        assertThat(testee.getVarMap()).containsOnly(entry("root", "ROOT"), entry("a", "ROOT/A"), entry("b", "ROOT/A/B"),
+                entry("c", "ROOT/A/B/C"), entry("d", "ROOT/A/B/D"));
 
     }
 
     @Test
     public final void testMarshal() throws Exception {
 
-	// PREPARE
-	final MyElement testee = new MyElement();
+        // PREPARE
+        final MyElement testee = new MyElement();
 
-	// TEST
-	final String result = marshal(testee, MyElement.class);
+        // TEST
+        final String result = marshal(testee, MyElement.class);
 
-	// VERIFY
-	assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
-		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
+        // VERIFY
+        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
 
     }
 
     @Test
     public final void testMarshalVariables() throws Exception {
 
-	// PREPARE
-	final MyElement testee = new MyElement();
-	testee.addVariable(new Variable("a", "1"));
+        // PREPARE
+        final MyElement testee = new MyElement();
+        testee.addVariable(new Variable("a", "1"));
 
-	// TEST
-	final String result = marshal(testee, MyElement.class);
+        // TEST
+        final String result = marshal(testee, MyElement.class);
 
-	// VERIFY
-	assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
-		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>");
+        // VERIFY
+        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>");
 
     }
 
     @Test
     public final void testUnmarshal() throws Exception {
 
-	// TEST
-	final MyElement testee = unmarshal(
-		"<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\"" + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>",
-		MyElement.class);
+        // TEST
+        final MyElement testee = unmarshal(
+                "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\"" + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>",
+                MyElement.class);
 
-	// VERIFY
-	assertThat(testee).isNotNull();
-	assertThat(testee.getVariables()).isNull();
-	assertThat(testee.getVarMap()).hasSize(0);
+        // VERIFY
+        assertThat(testee).isNotNull();
+        assertThat(testee.getVariables()).isNull();
+        assertThat(testee.getVarMap()).hasSize(0);
 
     }
 
     @Test
     public final void testUnmarshalVariables() throws Exception {
 
-	// TEST
-	final MyElement testee = unmarshal("<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
-		+ " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-element>",
-		MyElement.class);
-	testee.inheritVariables(null);
+        // TEST
+        final MyElement testee = unmarshal("<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-element>",
+                MyElement.class);
+        testee.inheritVariables(null);
 
-	// VERIFY
-	assertThat(testee).isNotNull();
-	assertThat(testee.getVariables()).containsExactly(new Variable("a", "1"));
-	assertThat(testee.getVarMap()).containsOnly(entry("a", "1"));
+        // VERIFY
+        assertThat(testee).isNotNull();
+        assertThat(testee.getVariables()).containsExactly(new Variable("a", "1"));
+        assertThat(testee.getVarMap()).containsOnly(entry("a", "1"));
 
     }
 

@@ -62,7 +62,7 @@ public final class Variable {
      * Package visible default constructor for deserialization.
      */
     Variable() {
-	super();
+        super();
     }
 
     /**
@@ -74,11 +74,11 @@ public final class Variable {
      *            Value to set.
      */
     public Variable(@NotEmpty final String name, @NotEmpty final String value) {
-	super();
-	Validate.notEmpty(name);
-	Validate.notEmpty(value);
-	this.name = name;
-	this.value = value;
+        super();
+        Validate.notEmpty(name);
+        Validate.notEmpty(value);
+        this.name = name;
+        this.value = value;
     }
 
     /**
@@ -92,14 +92,14 @@ public final class Variable {
      *            Encoding of the text resource the URL points to.
      */
     public Variable(@NotEmpty final String name, @NotNull final URL url, @NotEmpty final String encoding) {
-	super();
-	Validate.notEmpty(name);
-	Validate.notNull(url);
-	Validate.notEmpty(encoding);
-	this.name = name;
-	this.url = url;
-	this.urlStr = url.toString();
-	this.encoding = encoding;
+        super();
+        Validate.notEmpty(name);
+        Validate.notNull(url);
+        Validate.notEmpty(encoding);
+        this.name = name;
+        this.url = url;
+        this.urlStr = url.toString();
+        this.encoding = encoding;
     }
 
     /**
@@ -109,20 +109,20 @@ public final class Variable {
      */
     @NotEmpty
     public final String getName() {
-	return name;
+        return name;
     }
 
     /**
-     * Returns the value. If no value but an URL is defined, the value will be
-     * loaded once from the URL. Later calls will only return the cached value.
+     * Returns the value. If no value but an URL is defined, the value will be loaded once from the URL. Later calls will only return the
+     * cached value.
      * 
      * @return Value or <code>null</code>.
      */
     public final String getValue() {
-	if ((value == null) && (urlStr != null)) {
-	    value = Utils4J.readAsString(getURL(), getEncodingOrDefault(), 1024);
-	}
-	return value;
+        if ((value == null) && (urlStr != null)) {
+            value = Utils4J.readAsString(getURL(), getEncodingOrDefault(), 1024);
+        }
+        return value;
     }
 
     /**
@@ -131,14 +131,14 @@ public final class Variable {
      * @return URL or <code>null</code>.
      */
     public final URL getURL() {
-	if (url == null) {
-	    try {
-		url = Utils4J.url(urlStr);
-	    } catch (final RuntimeException ex) {
-		throw new RuntimeException("Variable '" + getName() + "' has illegal URL: " + urlStr, ex);
-	    }
-	}
-	return url;
+        if (url == null) {
+            try {
+                url = Utils4J.url(urlStr);
+            } catch (final RuntimeException ex) {
+                throw new RuntimeException("Variable '" + getName() + "' has illegal URL: " + urlStr, ex);
+            }
+        }
+        return url;
     }
 
     /**
@@ -147,20 +147,19 @@ public final class Variable {
      * @return Encoding or <code>null</code>.
      */
     public final String getEncoding() {
-	return encoding;
+        return encoding;
     }
 
     /**
-     * Returns the encoding to use for reading the value from the URL. If no
-     * encoding is defined this method returns 'utf-8' as default.
+     * Returns the encoding to use for reading the value from the URL. If no encoding is defined this method returns 'utf-8' as default.
      * 
      * @return Encoding - Never <code>null</code>.
      */
     public final String getEncodingOrDefault() {
-	if (encoding == null) {
-	    return "utf-8";
-	}
-	return encoding;
+        if (encoding == null) {
+            return "utf-8";
+        }
+        return encoding;
     }
 
     /**
@@ -170,44 +169,44 @@ public final class Variable {
      *            Variables to use.
      */
     public final void init(@Nullable final Map<String, String> vars) {
-	value = Utils4J.replaceVars(getValue(), vars);
+        value = Utils4J.replaceVars(getValue(), vars);
     }
 
     // CHECKSTYLE:OFF Generated code
     @Override
     public final int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + ((name == null) ? 0 : name.hashCode());
-	return result;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        return result;
     }
 
     @Override
     public final boolean equals(final Object obj) {
-	if (this == obj) {
-	    return true;
-	}
-	if (obj == null) {
-	    return false;
-	}
-	if (getClass() != obj.getClass()) {
-	    return false;
-	}
-	Variable other = (Variable) obj;
-	if (name == null) {
-	    if (other.name != null) {
-		return false;
-	    }
-	} else if (!name.equals(other.name)) {
-	    return false;
-	}
-	return true;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Variable other = (Variable) obj;
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        return true;
     }
     // CHECKSTYLE:ON
 
     @Override
     public final String toString() {
-	return "Variable [name=" + name + ", value=" + value + ", urlStr=" + urlStr + ", encoding=" + encoding + "]";
+        return "Variable [name=" + name + ", value=" + value + ", urlStr=" + urlStr + ", encoding=" + encoding + "]";
     }
 
 }

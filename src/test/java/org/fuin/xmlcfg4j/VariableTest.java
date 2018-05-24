@@ -45,61 +45,58 @@ public class VariableTest {
     @Test
     public final void testPojoStructureAndBehavior() {
 
-	final PojoClass pc = PojoClassFactory.getPojoClass(Variable.class);
-	final PojoValidator pv = createPojoValidator();
-	pv.runValidation(pc);
+        final PojoClass pc = PojoClassFactory.getPojoClass(Variable.class);
+        final PojoValidator pv = createPojoValidator();
+        pv.runValidation(pc);
 
     }
 
     @Test
     public final void testMarshal() throws Exception {
 
-	// PREPARE
-	final Variable testee = new Variable("abc", "def");
+        // PREPARE
+        final Variable testee = new Variable("abc", "def");
 
-	// TEST
-	final String result = marshal(testee, Variable.class);
+        // TEST
+        final String result = marshal(testee, Variable.class);
 
-	// VERIFY
-	assertThat(result).isEqualTo(XML_PREFIX + "<variable name=\"abc\" value=\"def\" " + "xmlns=\"http://www.fuin.org/xmlcfg4j\"/>");
+        // VERIFY
+        assertThat(result).isEqualTo(XML_PREFIX + "<variable name=\"abc\" value=\"def\" " + "xmlns=\"http://www.fuin.org/xmlcfg4j\"/>");
 
     }
 
     @Test
     public final void testUnmarshal() throws Exception {
 
-	// TEST
-	final Variable testee = unmarshal("<variable name=\"abc\" value=\"def\" xmlns=\"http://www.fuin.org/xmlcfg4j\"/>", Variable.class);
+        // TEST
+        final Variable testee = unmarshal("<variable name=\"abc\" value=\"def\" xmlns=\"http://www.fuin.org/xmlcfg4j\"/>", Variable.class);
 
-	// VERIFY
-	assertThat(testee).isNotNull();
-	assertThat(testee.getName()).isEqualTo("abc");
-	assertThat(testee.getValue()).isEqualTo("def");
+        // VERIFY
+        assertThat(testee).isNotNull();
+        assertThat(testee.getName()).isEqualTo("abc");
+        assertThat(testee.getValue()).isEqualTo("def");
 
     }
 
     @Test
     public final void testHashCodeEquals() {
-	EqualsVerifier.forClass(Variable.class)
-		.withIgnoredFields("value", "urlStr", "encoding")
-		.suppress(Warning.NONFINAL_FIELDS)
-		.verify();
+        EqualsVerifier.forClass(Variable.class).withIgnoredFields("value", "urlStr", "encoding").suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
     @Test
     public final void testInit() {
 
-	// PREPARE
-	final Map<String, String> vars = new HashMap<String, String>();
-	vars.put("a", "1");
+        // PREPARE
+        final Map<String, String> vars = new HashMap<String, String>();
+        vars.put("a", "1");
 
-	final Variable testee = new Variable("x", "${a}");
+        final Variable testee = new Variable("x", "${a}");
 
-	// TEST
-	testee.init(vars);
+        // TEST
+        testee.init(vars);
 
-	// VERIFY
-	assertThat(testee.getValue()).isEqualTo("1");
+        // VERIFY
+        assertThat(testee.getValue()).isEqualTo("1");
 
     }
 
