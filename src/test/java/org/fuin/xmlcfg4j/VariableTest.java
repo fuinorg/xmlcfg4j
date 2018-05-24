@@ -32,6 +32,9 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 /**
  * Tests for {@link Variable}.
  */
@@ -73,6 +76,14 @@ public class VariableTest {
 	assertThat(testee.getName()).isEqualTo("abc");
 	assertThat(testee.getValue()).isEqualTo("def");
 
+    }
+
+    @Test
+    public final void testHashCodeEquals() {
+	EqualsVerifier.forClass(Variable.class)
+		.withIgnoredFields("value", "urlStr", "encoding")
+		.suppress(Warning.NONFINAL_FIELDS)
+		.verify();
     }
 
     @Test
