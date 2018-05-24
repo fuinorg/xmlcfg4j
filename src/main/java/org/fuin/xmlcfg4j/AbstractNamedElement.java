@@ -27,7 +27,7 @@ import org.apache.commons.lang3.Validate;
 
 /**
  * Base class with a name that is used as unique identifier. Equals and hash
- * code are also based on the name.
+ * code are also based on the name and the type of the class.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(propOrder = { "name" })
@@ -88,18 +88,23 @@ public abstract class AbstractNamedElement extends AbstractElement {
 
     @Override
     public final boolean equals(final Object obj) {
-	if (this == obj)
+	if (this == obj) {
 	    return true;
-	if (obj == null)
+	}
+	if (obj == null) {
 	    return false;
-	if (getClass() != obj.getClass())
+	}
+	if (getClass() != obj.getClass()) {
 	    return false;
-	AbstractNamedElement other = (AbstractNamedElement) obj;
+	}
+	final AbstractNamedElement other = (AbstractNamedElement) obj;
 	if (name == null) {
-	    if (other.name != null)
+	    if (other.name != null) {
 		return false;
-	} else if (!name.equals(other.name))
+	    }
+	} else if (!name.equals(other.name)) {
 	    return false;
+	}
 	return true;
     }
     // CHECKSTYLE:ON

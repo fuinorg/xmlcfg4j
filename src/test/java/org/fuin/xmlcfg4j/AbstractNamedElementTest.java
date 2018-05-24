@@ -33,6 +33,9 @@ import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
 import com.openpojo.validation.PojoValidator;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 /**
  * Tests for {@link AbstractNamedElement}.
  */
@@ -110,11 +113,20 @@ public class AbstractNamedElementTest {
 
     }
 
+    @Test
+    public final void testHashCodeEquals() {
+	EqualsVerifier.forClass(MyElement.class)
+		.withRedefinedSuperclass()
+		.withIgnoredFields("variables")
+		.suppress(Warning.NONFINAL_FIELDS)
+		.verify();
+    }
+    
     /**
      * Test class.
      */
     @XmlRootElement(name = "my-named-element", namespace = "http://www.fuin.org/xmlcfg4j-test")
-    private static class MyElement extends AbstractNamedElement {
+    private static final class MyElement extends AbstractNamedElement {
 
 	@SuppressWarnings("unused")
 	public MyElement() {
