@@ -3,7 +3,7 @@ xmlcfg4j
 
 XML based configuration for Java.
 
-[![Build Status](https://fuin-org.ci.cloudbees.com/job/xmlcfg4j/badge/icon)](https://fuin-org.ci.cloudbees.com/job/xmlcfg4j/)
+[![Build Status](https://jenkins.fuin.org/job/xmlcfg4j/badge/icon)](https://jenkins.fuin.org/job/xmlcfg4j/)
 [![Coverage Status](https://sonarcloud.io/api/project_badges/measure?project=org.fuin%3Axmlcfg4j&metric=coverage)](https://sonarcloud.io/dashboard?id=org.fuin%3Axmlcfg4j)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.fuin/xmlcfg4j/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.fuin/xmlcfg4j/)
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
