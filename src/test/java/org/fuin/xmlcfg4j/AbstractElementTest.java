@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.utils4j.VariableResolver;
 import org.junit.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -110,8 +111,8 @@ public class AbstractElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>").areIdentical();
 
     }
 
@@ -126,8 +127,9 @@ public class AbstractElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-element xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>");
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>")
+                .areIdentical();
 
     }
 

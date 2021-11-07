@@ -30,6 +30,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -61,7 +62,8 @@ public class VariableTest {
         final String result = marshal(testee, Variable.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<variable name=\"abc\" value=\"def\" " + "xmlns=\"http://www.fuin.org/xmlcfg4j\"/>");
+        XmlAssert.assertThat(result)
+                .and(XML_PREFIX + "<cfg4j:variable name=\"abc\" value=\"def\" " + "xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\"/>");
 
     }
 
@@ -69,7 +71,8 @@ public class VariableTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final Variable testee = unmarshal("<variable name=\"abc\" value=\"def\" xmlns=\"http://www.fuin.org/xmlcfg4j\"/>", Variable.class);
+        final Variable testee = unmarshal("<cfg4j:variable name=\"abc\" value=\"def\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\"/>",
+                Variable.class);
 
         // VERIFY
         assertThat(testee).isNotNull();

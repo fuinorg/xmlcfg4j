@@ -26,7 +26,6 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
 
 import org.apache.commons.lang3.Validate;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -37,7 +36,6 @@ import org.fuin.utils4j.Utils4J;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlRootElement(name = "variable")
-@XmlType(propOrder = { "name", "value" })
 public final class Variable {
 
     @NotEmpty

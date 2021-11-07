@@ -31,6 +31,7 @@ import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
 import org.junit.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -62,8 +63,8 @@ public class AbstractNamedElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>");
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
+                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>").areIdentical();
 
     }
 
@@ -78,8 +79,11 @@ public class AbstractNamedElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable name=\"a\" value=\"1\"/>" + "</ns2:my-named-element>");
+        XmlAssert.assertThat(result)
+                .and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
+                        + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>"
+                        + "</ns2:my-named-element>")
+                .areIdentical();
 
     }
 

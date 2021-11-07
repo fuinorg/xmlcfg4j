@@ -24,6 +24,7 @@ import static org.fuin.utils4j.JaxbUtils.unmarshal;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 
 import org.junit.Test;
+import org.xmlunit.assertj3.XmlAssert;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
@@ -55,8 +56,8 @@ public class VariablesTest {
         final String result = marshal(testee, Variables.class);
 
         // VERIFY
-        assertThat(result).isEqualTo(XML_PREFIX + "<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">"
-                + "<variable name=\"abc\" value=\"def\"/>" + "</variables>");
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<cfg4j:variables xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\">"
+                + "<cfg4j:variable name=\"abc\" value=\"def\"/>" + "</cfg4j:variables>").areIdentical();
 
     }
 
@@ -64,9 +65,8 @@ public class VariablesTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final Variables testee = unmarshal(
-                "<variables xmlns=\"http://www.fuin.org/xmlcfg4j\">" + "<variable name=\"abc\" value=\"def\"/>" + "</variables>",
-                Variables.class);
+        final Variables testee = unmarshal("<cfg4j:variables xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\">"
+                + "<cfg4j:variable name=\"abc\" value=\"def\"/>" + "</cfg4j:variables>", Variables.class);
 
         // VERIFY
         assertThat(testee).isNotNull();
