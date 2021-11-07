@@ -27,7 +27,7 @@ import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
+import com.openpojo.validation.Validator;
 
 /**
  * Tests for {@link Variables}.
@@ -40,8 +40,8 @@ public class VariablesTest {
     public final void testPojoStructureAndBehavior() {
 
         final PojoClass pc = PojoClassFactory.getPojoClass(Variables.class);
-        final PojoValidator pv = createPojoValidator();
-        pv.runValidation(pc);
+        final Validator pv = createPojoValidator();
+        pv.validate(pc);
 
     }
 

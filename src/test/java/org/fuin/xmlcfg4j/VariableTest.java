@@ -26,14 +26,14 @@ import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 import java.util.HashMap;
 import java.util.Map;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
+import com.openpojo.validation.Validator;
 
 /**
  * Tests for {@link Variable}.
@@ -46,8 +46,8 @@ public class VariableTest {
     public final void testPojoStructureAndBehavior() {
 
         final PojoClass pc = PojoClassFactory.getPojoClass(Variable.class);
-        final PojoValidator pv = createPojoValidator();
-        pv.runValidation(pc);
+        final Validator pv = createPojoValidator();
+        pv.validate(pc);
 
     }
 

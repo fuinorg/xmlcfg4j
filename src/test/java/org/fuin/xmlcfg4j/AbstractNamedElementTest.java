@@ -27,14 +27,14 @@ import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 import org.junit.Test;
 
 import com.openpojo.reflection.PojoClass;
 import com.openpojo.reflection.impl.PojoClassFactory;
-import com.openpojo.validation.PojoValidator;
-
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
+import com.openpojo.validation.Validator;
 
 /**
  * Tests for {@link AbstractNamedElement}.
@@ -47,8 +47,8 @@ public class AbstractNamedElementTest {
     public final void testPojoStructureAndBehavior() {
 
         final PojoClass pc = PojoClassFactory.getPojoClass(MyElement.class);
-        final PojoValidator pv = createPojoValidator();
-        pv.runValidation(pc);
+        final Validator pv = createPojoValidator();
+        pv.validate(pc);
 
     }
 
