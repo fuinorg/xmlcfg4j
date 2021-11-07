@@ -1,6 +1,4 @@
-xmlcfg4j
-========
-
+# xmlcfg4j
 XML based configuration for Java.
 
 [![Build Status](https://jenkins.fuin.org/job/xmlcfg4j/badge/icon)](https://jenkins.fuin.org/job/xmlcfg4j/)
@@ -9,14 +7,15 @@ XML based configuration for Java.
 [![LGPLv3 License](http://img.shields.io/badge/license-LGPLv3-blue.svg)](https://www.gnu.org/licenses/lgpl.html)
 [![Java Development Kit 1.8](https://img.shields.io/badge/JDK-1.8-green.svg)](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-Description
-===========
+## Versions
+- 0.2.1 (or later) = **Java 11** before namespace change from 'javax' to 'jakarta'
+- 0.2.0 (or previous) = **Java 8**
 
+## Description
 This library provides base classes for JAXB based configurations. The configuration itself is always implemented in another (specific) project.
 There is also an XSD schema available: [xmlcfg4j.xsd](http://www.fuin.org/xsd/xmlcfg4j.xsd)
 
-Variable
---------
+### Variable
 A variable tag defines simply a key and a value. 
 ```XML
 <variable name="abc" value="def" />
@@ -29,8 +28,7 @@ The tag may reference other variables.
 ```
 The final values of the variables are: a="1" / b="1/2" / c="1/2/3".
 
-AbstractElement
----------------
+### AbstractElement
 The class [AbstractElement](https://raw.github.com/fuinorg/xmlcfg4j/master/src/main/java/org/fuin/xmlcfg4j/AbstractElement.java) is mainly a container for variables.
 
 You will need to extend it in your project that has a JAXB based XML configuration: 
@@ -47,8 +45,7 @@ Then you can use it like this:
 </my-element>
 ```
 
-AbstractNamedElement
---------------------
+### AbstractNamedElement
 The class [AbstractNamedElement](https://raw.github.com/fuinorg/xmlcfg4j/master/src/main/java/org/fuin/xmlcfg4j/AbstractNamedElement.java) adds only a unique name to the [AbstractElement](https://raw.github.com/fuinorg/xmlcfg4j/master/src/main/java/org/fuin/xmlcfg4j/AbstractElement.java).
 
 You will need to extend it in your project that has a JAXB based XML configuration: 
@@ -65,8 +62,7 @@ Then you can use it like this:
 </my-named-element>
 ```
 
-Inherit and override variables
-------------------------------
+### Inherit and override variables
 If you create elements that contain other elements, it's easy to support inheritance of variables and also override them.
 
 ```XML
@@ -94,9 +90,7 @@ If you create elements that contain other elements, it's easy to support inherit
 See [ParentChildTest](https://raw.github.com/fuinorg/xmlcfg4j/master/src/test/java/org/fuin/xmlcfg4j/ParentChildTest.java) for an example on how to use it.
 
 -----------------------------------------------------
-Building this project
-=====================
-
+## Building this project
 Checkout the source code from the repository and use the following commands inside the project's directory to build the project.
 
 Linux:
@@ -111,9 +105,7 @@ C:\Users\YourUser> mvnw.cmd clean install
 
 -----------------------------------------------------
 
-Snapshots
-=========
-
+## Snapshots
 Snapshots can be found on the [OSS Sonatype Snapshots Repository](http://oss.sonatype.org/content/repositories/snapshots/org/fuin "Snapshot Repository"). 
 
 Add the following to your [.m2/settings.xml](http://maven.apache.org/ref/3.2.1/maven-settings/settings.html "Reference configuration") to enable snapshots in your Maven build:
