@@ -29,9 +29,6 @@ import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import nl.jqno.equalsverifier.EqualsVerifier;
-import nl.jqno.equalsverifier.Warning;
-
 import org.junit.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
@@ -65,8 +62,9 @@ public class AbstractNamedElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\"/>").areIdentical();
+        XmlAssert.assertThat(result).and(
+                XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\"/>")
+                .areIdentical();
 
     }
 
@@ -81,10 +79,9 @@ public class AbstractNamedElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        XmlAssert.assertThat(result)
-                .and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\""
-                        + " xmlns:ns2=\"" + NS_TEST + "\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>"
-                        + "</ns2:my-named-element>")
+        XmlAssert
+                .assertThat(result).and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\""
+                        + " xmlns:ns2=\"" + NS_TEST + "\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>" + "</ns2:my-named-element>")
                 .areIdentical();
 
     }
@@ -93,8 +90,8 @@ public class AbstractNamedElementTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\"/>", MyElement.class);
+        final MyElement testee = unmarshal(
+                "<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\"/>", MyElement.class);
 
         // VERIFY
         assertThat(testee).isNotNull();
@@ -107,9 +104,8 @@ public class AbstractNamedElementTest {
     public final void testUnmarshalVariables() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-named-element>",
-                MyElement.class);
+        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST
+                + "\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-named-element>", MyElement.class);
         testee.inheritVariables(null);
 
         // VERIFY
@@ -117,12 +113,6 @@ public class AbstractNamedElementTest {
         assertThat(testee.getVariables()).containsExactly(new Variable("a", "1"));
         assertThat(testee.getVarMap()).containsOnly(entry("a", "1"));
 
-    }
-
-    @Test
-    public final void testHashCodeEquals() {
-        EqualsVerifier.forClass(MyElement.class).withRedefinedSuperclass().withIgnoredFields("variables").suppress(Warning.NONFINAL_FIELDS)
-                .verify();
     }
 
     /**
