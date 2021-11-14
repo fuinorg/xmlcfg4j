@@ -18,9 +18,9 @@
 package org.fuin.xmlcfg4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_CFG4J;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 
@@ -30,6 +30,7 @@ import java.util.Map;
 import nl.jqno.equalsverifier.EqualsVerifier;
 import nl.jqno.equalsverifier.Warning;
 
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
@@ -63,8 +64,7 @@ public class VariableTest {
         final String result = marshal(testee, Variable.class);
 
         // VERIFY
-        XmlAssert.assertThat(result)
-                .and(XML_PREFIX + "<cfg4j:variable name=\"abc\" value=\"def\" " + "xmlns:cfg4j=\"" + NS_CFG4J + "\"/>");
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<cfg4j:variable name=\"abc\" value=\"def\" " + "xmlns:cfg4j=\"" + NS_CFG4J + "\"/>");
 
     }
 
@@ -72,8 +72,8 @@ public class VariableTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final Variable testee = unmarshal("<cfg4j:variable name=\"abc\" value=\"def\" xmlns:cfg4j=\"" + NS_CFG4J + "\"/>",
-                Variable.class);
+        final Variable testee = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(Variable.class).build(),
+                "<cfg4j:variable name=\"abc\" value=\"def\" xmlns:cfg4j=\"" + NS_CFG4J + "\"/>");
 
         // VERIFY
         assertThat(testee).isNotNull();

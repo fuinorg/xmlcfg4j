@@ -19,9 +19,9 @@ package org.fuin.xmlcfg4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
-import static org.fuin.utils4j.JaxbUtils.marshal;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.XML_PREFIX;
+import static org.fuin.utils4j.jaxb.JaxbUtils.marshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_CFG4J;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_TEST;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.fuin.utils4j.VariableResolver;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 import org.xmlunit.assertj3.XmlAssert;
 
@@ -113,8 +114,8 @@ public class AbstractElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\"/>").areIdentical();
+        XmlAssert.assertThat(result)
+                .and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\"/>").areIdentical();
 
     }
 
@@ -129,9 +130,8 @@ public class AbstractElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>")
-                .areIdentical();
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-element xmlns:cfg4j=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\">"
+                + "<cfg4j:variable name=\"a\" value=\"1\"/>" + "</ns2:my-element>").areIdentical();
 
     }
 
@@ -139,9 +139,8 @@ public class AbstractElementTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal(
-                "<ns2:my-element xmlns=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\"/>",
-                MyElement.class);
+        final MyElement testee = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(MyElement.class).build(),
+                "<ns2:my-element xmlns=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\"/>");
 
         // VERIFY
         assertThat(testee).isNotNull();
@@ -154,9 +153,9 @@ public class AbstractElementTest {
     public final void testUnmarshalVariables() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal("<ns2:my-element xmlns=\"" + NS_CFG4J + "\""
-                + " xmlns:ns2=\"" + NS_TEST + "\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-element>",
-                MyElement.class);
+        final MyElement testee = unmarshal(new UnmarshallerBuilder().addClassesToBeBound(MyElement.class).build(),
+                "<ns2:my-element xmlns=\"" + NS_CFG4J + "\"" + " xmlns:ns2=\"" + NS_TEST + "\">" + "<variable value=\"1\" name=\"a\"/>"
+                        + "</ns2:my-element>");
         testee.inheritVariables(null);
 
         // VERIFY

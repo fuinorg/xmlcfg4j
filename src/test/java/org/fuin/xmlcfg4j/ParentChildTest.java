@@ -19,12 +19,13 @@ package org.fuin.xmlcfg4j;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.entry;
-import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.utils4j.jaxb.JaxbUtils.unmarshal;
 
 import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
+import org.fuin.utils4j.jaxb.UnmarshallerBuilder;
 import org.junit.Test;
 
 /**
@@ -44,7 +45,8 @@ public class ParentChildTest {
         String pathVal = "${root}/example";
 
         final String xml = read("parent-child.xml");
-        final ParentElement parent = unmarshal(xml, ParentElement.class, ChildElement.class);
+        final ParentElement parent = unmarshal(
+                new UnmarshallerBuilder().addClassesToBeBound(ParentElement.class, ChildElement.class).build(), xml);
         parent.init();
 
         // VERIFY
