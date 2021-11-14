@@ -29,6 +29,10 @@ import com.openpojo.validation.test.impl.GetterTester;
  */
 public final class XmlCfg4JTestUtils {
 
+    public static final String NS_CFG4J = "http://www.fuin.org/xmlcfg4j/0.2.1";
+
+    public static final String NS_TEST = "http://www.fuin.org/xmlcfg4j-test";
+    
     /**
      * Private utility class constructor.
      */

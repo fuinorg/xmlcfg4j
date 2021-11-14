@@ -28,6 +28,7 @@ import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.fuin.utils4j.Utils4J;
@@ -41,10 +42,11 @@ public abstract class AbstractElement {
 
     @Nullable
     @Valid
-    @XmlElement(name = "variable")
+    @XmlElement(name = "variable", namespace = XmlCfg4JNamespace.NAMESPACE)
     private List<Variable> variables;
 
-    private transient Map<String, String> varMap;
+    @XmlTransient
+    private Map<String, String> varMap;
 
     /**
      * Derives all variables from a parent map plus the ones defined in the object itself.

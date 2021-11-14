@@ -22,6 +22,8 @@ import static org.assertj.core.api.Assertions.entry;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_CFG4J;
+import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_TEST;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 
 import javax.validation.constraints.NotEmpty;
@@ -63,8 +65,8 @@ public class AbstractNamedElementTest {
         final String result = marshal(testee, MyElement.class);
 
         // VERIFY
-        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>").areIdentical();
+        XmlAssert.assertThat(result).and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\""
+                + " xmlns:ns2=\"" + NS_TEST + "\"/>").areIdentical();
 
     }
 
@@ -80,8 +82,8 @@ public class AbstractNamedElementTest {
 
         // VERIFY
         XmlAssert.assertThat(result)
-                .and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\""
-                        + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>"
+                .and(XML_PREFIX + "<ns2:my-named-element name=\"NAME\" xmlns:cfg4j=\"" + NS_CFG4J + "\""
+                        + " xmlns:ns2=\"" + NS_TEST + "\">" + "<cfg4j:variable name=\"a\" value=\"1\"/>"
                         + "</ns2:my-named-element>")
                 .areIdentical();
 
@@ -91,8 +93,8 @@ public class AbstractNamedElementTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\"/>", MyElement.class);
+        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\""
+                + " xmlns:ns2=\"" + NS_TEST + "\"/>", MyElement.class);
 
         // VERIFY
         assertThat(testee).isNotNull();
@@ -105,8 +107,8 @@ public class AbstractNamedElementTest {
     public final void testUnmarshalVariables() throws Exception {
 
         // TEST
-        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"http://www.fuin.org/xmlcfg4j\""
-                + " xmlns:ns2=\"http://www.fuin.org/xmlcfg4j-test\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-named-element>",
+        final MyElement testee = unmarshal("<ns2:my-named-element name=\"NAME\" xmlns=\"" + NS_CFG4J + "\""
+                + " xmlns:ns2=\"" + NS_TEST + "\">" + "<variable value=\"1\" name=\"a\"/>" + "</ns2:my-named-element>",
                 MyElement.class);
         testee.inheritVariables(null);
 
@@ -126,7 +128,7 @@ public class AbstractNamedElementTest {
     /**
      * Test class.
      */
-    @XmlRootElement(name = "my-named-element", namespace = "http://www.fuin.org/xmlcfg4j-test")
+    @XmlRootElement(name = "my-named-element", namespace = NS_TEST)
     private static final class MyElement extends AbstractNamedElement {
 
         @SuppressWarnings("unused")

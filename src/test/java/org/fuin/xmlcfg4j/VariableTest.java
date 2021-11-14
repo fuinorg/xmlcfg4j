@@ -21,6 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.fuin.utils4j.JaxbUtils.XML_PREFIX;
 import static org.fuin.utils4j.JaxbUtils.marshal;
 import static org.fuin.utils4j.JaxbUtils.unmarshal;
+import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.NS_CFG4J;
 import static org.fuin.xmlcfg4j.XmlCfg4JTestUtils.createPojoValidator;
 
 import java.util.HashMap;
@@ -63,7 +64,7 @@ public class VariableTest {
 
         // VERIFY
         XmlAssert.assertThat(result)
-                .and(XML_PREFIX + "<cfg4j:variable name=\"abc\" value=\"def\" " + "xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\"/>");
+                .and(XML_PREFIX + "<cfg4j:variable name=\"abc\" value=\"def\" " + "xmlns:cfg4j=\"" + NS_CFG4J + "\"/>");
 
     }
 
@@ -71,7 +72,7 @@ public class VariableTest {
     public final void testUnmarshal() throws Exception {
 
         // TEST
-        final Variable testee = unmarshal("<cfg4j:variable name=\"abc\" value=\"def\" xmlns:cfg4j=\"http://www.fuin.org/xmlcfg4j\"/>",
+        final Variable testee = unmarshal("<cfg4j:variable name=\"abc\" value=\"def\" xmlns:cfg4j=\"" + NS_CFG4J + "\"/>",
                 Variable.class);
 
         // VERIFY
